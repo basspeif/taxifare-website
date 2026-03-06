@@ -8,8 +8,21 @@ import pandas as pd
 ## TITLE OF THE PAGE ##
 
 st.markdown("""
-<h1 style='color:white; font-size:48px;'>
-    Taxi<span style='color:#09E0E0;'>Peif</span>are
+<h1 style="
+    font-size: 60px;
+    font-weight: bold;
+    color: white;
+    text-shadow:
+        -2px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+">
+    Taxi<span style="color:#09E0E0; text-shadow:
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;">Peif</span>are
 </h1>
 """, unsafe_allow_html=True)
 
@@ -76,7 +89,7 @@ st_folium(m, width=750, height=500)
 
 ## API URL TO USE : mine ##
 url = 'http://127.0.0.1:8000/predict'
-
+url2 = 'https://taxifare.lewagon.ai/predict'
 ## BUTTON TO CLICK TO DISPLAY ESTIMATED FARE ##
 
 st.markdown("""
@@ -109,7 +122,7 @@ if st.button("Confirm the run"):
         "passenger_count": passenger_count
     }
 
-    response = requests.get(url, params=params)
+    response = requests.get(url2, params=params)
 
     if response.status_code == 200:
         result = response.json()
