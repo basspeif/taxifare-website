@@ -56,6 +56,9 @@ center_lon = (pickup[1] + dropoff[1]) / 2
 m = folium.Map(location=[center_lat, center_lon],
                zoom_start=14, tiles="CartoDB dark_matter")
 
+# Fit the map to show both pickup and dropoff points
+m.fit_bounds([pickup, dropoff])
+
 # Pickup point
 folium.CircleMarker(
     location=pickup,
