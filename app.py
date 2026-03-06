@@ -5,9 +5,15 @@ import requests
 from datetime import datetime
 import pandas as pd
 
-'''
-# TaxiFare
-'''
+## TITLE OF THE PAGE ##
+
+st.markdown("""
+<h1 style='color:white; font-size:48px;'>
+    Taxi<span style='color:#09E0E0;'>Peif</span>are
+</h1>
+""", unsafe_allow_html=True)
+
+## STARTING PARAMETERS ##
 
 st.write("Enter your location and the passenger count:")
 # Date and time
@@ -26,14 +32,14 @@ passenger_count = st.number_input(
     "Passenger Count",
     min_value=0,value=1)
 
-# Design the map, plot the map
+
+## DESIGN FOR THE MAP AND PLOTTING THE MAP ##
 pickup = [pickup_lat, pickup_lon]
 dropoff = [dropoff_lat, dropoff_lon]
 
 center_lat = (pickup[0] + dropoff[0]) / 2
 center_lon = (pickup[1] + dropoff[1]) / 2
 
-# Create map centered and zoomed
 m = folium.Map(location=[center_lat, center_lon],
                zoom_start=14, tiles="CartoDB dark_matter")
 
@@ -59,23 +65,40 @@ folium.CircleMarker(
     tooltip="Dropoff"
 ).add_to(m)
 
+ # LINE
 folium.PolyLine([pickup, dropoff], color="#09E0E0",
                 dash_array="5, 10", weight=3).add_to(m)
 
+# MAP
 st_folium(m, width=750, height=500)
 
-'''
-## Validate when informations ready:
-'''
 
+
+## API URL TO USE : mine ##
 url = 'http://127.0.0.1:8000/predict'
 
-if url == 'https://taxifare.lewagon.ai/predict':
+## BUTTON TO CLICK TO DISPLAY ESTIMATED FARE ##
 
-    st.markdown('Maybe you want to use your own API for the prediction, not the one provided by Le Wagon...')
+st.markdown("""
+    <style>
+    div.stButton > button:first-child {
+        font-size: 30px;            /* button text size */
+        font-weight: bold;           /* bold text */
+        padding: 15px 30px;          /* size of the button */
+        color: #09E0E0;              /* text color neon blue */
+        background-color: black;     /* button background */
+        border: 3px solid #09E0E0;   /* neon blue border */
+        border-radius: 10px;         /* rounded corners */
+    }
+    div.stButton > button:first-child:hover {
+        background-color: #09E0E0;   /* slight hover effect */
+        border: 3px solid black;
+        color: black;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
-
-if st.button("Validate"):
+if st.button("Confirm the run"):
 
     params = {
         "pickup_datetime": trip_datetime.isoformat(),
